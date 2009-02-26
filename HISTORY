@@ -1,0 +1,88 @@
+Lace Changelog
+--------------
+
+[+] New feature
+[*] Changed/improved feature
+[-] Bug fix
+[!] Comment
+
+Version 0.1.5.1 (23 July 2006)
+
+  [-] Fixed several Javascript issues
+  [-] Fixed several mb-*() issues
+  [-] Fixed lace.php's missing configuration for redirect
+  [-] Fixed malformed data corrupting output
+
+Version 0.1.5 (16 Apr 2006)
+
+  [+] Basic IRC-ish /nick command
+  [*] Some problems characters have been made illegal
+      in nicknames: |<>!#%&*+
+  [*] Newlines in messages replaced with <br>, alleviating
+      some data corruption issues.  A side-effect is
+      newlines within <code> tags are replaced as well.
+  [-] Missing multibyte functions no longer throw errors
+      (e.g., mb_internal_encoding())
+  [-] Fixed uniqid() parameters for PHP < 5
+  [-] Fixed class member initialization for PHP < 4.3
+  [-] Fixed blank (zero-length) names landing the data files
+      that caused "undefined offset" errors
+
+Version 0.1.4 (13 Mar 2006)
+
+  [+] Scrollable message history
+  [+] Basic anti-flood protection
+  [+] Basic nickname hijack protection
+  [*] Partial JSON implementation
+  [*] Join/Part and Name Change messages are now
+      separately optional
+  [*] Removed most non-essential code (About, download, etc.)
+  [*] Live Preview removed (non-essential)
+  [*] HTML Buttons removed (non-essential)
+  [*] Many speed improvements
+  [-] UTF-8 Support fixes
+  [-] PHP 5.0.5 pass-by-reference fix ('Line 655' bug)
+
+
+Version 0.1.3 (10 Oct 2005)
+
+  [+] User List. See who's currently chatting, when they enter,
+      when they change their name, when they're idle, and when
+      they've left.
+  [*] Code and directory structure slightly reorganized.
+  [*] Removed reliance on ForceType via .htaccess; switched to
+      mod_rewrite for pretty URLs (optional).
+  [-] Lace form action attribute was hardcoded. It now honors
+      LACE_URL_REL.
+  [-] Several minor bugfixes/improvements.
+
+Version 0.1.2 (24 May 2005)
+
+  [+] Duplicate posts are now prevented in the client engine.
+  [*] Action command now accepts forward or back slash:
+    /me likes Google is the same as \me likes Google.
+  [*] Idle confirmation OK and Cancel buttons now act as
+      expected.
+  [-] AutoLinks now support the https scheme.
+  [-] AutoLinks: URL characters are now run through
+      htmlentities() rather than urlencode().  This solves the
+      "%2F" trailing slash issue.
+  [-] Several server engine HTML filter issues resolved
+  [-] Client engine polling interval now begins a fresh cycle
+      when a message is posted.
+  [-] LivePreview and the actual posted message now share the
+      same maximum length as defined by LACE_MAX_TEXT_LENGTH in
+      config.php.
+  [-] Long names are now truncated to prevent layout overflow.
+  [!] Thanks to everyone who stopped by to help track these
+      issues down!
+
+Version 0.1.1 (23 May 2005)
+
+  [-] Fixed HTML filter bug that allowed 'blank' messages to
+      cause display issues
+  [-] AutoLinks submitted without link text created 'empty' links
+
+Version 0.1.0 (17 May 2005)
+
+  [!] Initial Release (gulp!)

@@ -1,0 +1,232 @@
+Lace Readme
+-----------
+
+Copyright (C) 2005-2006 Brett Stimmerman <brettstimmerman@gmail.com>
+Redistribution of this file is permitted under the terms of the GPL
+
+Table of Contents
+-----------------
+0. Disclaimer
+1. General Information
+2. How does it work?
+3. Requirements
+4. Installing Lace
+5. Upgrading Lace
+6. Support
+7. Todo
+8. Credits
+
+
+0. Disclaimer
+-------------
+Lace is experimental.  It is nothing more than several components
+haphazardly smashed together and forced to play nice.
+
+Feel free to modify it in any way; but if you do, please send your
+changes to brettstimmerman@gmail.com for consideration for next
+official release.
+
+
+1. General Information
+----------------------
+Lace is a free, lightweight Ajaxian communications engine written
+in PHP, Javascript, XHTML and CSS. Lace takes advantage of
+XMLHttpRequest if it is present, and degrades gracefully if it is
+not.
+
+The latest version of Lace can be found at:
+
+  http://www.socket7.net/lace/
+
+Lace is released under the terms of the GPL.  See the LICENSE file
+for more information.
+
+
+2. How does it work?
+--------------------
+Lace has two major components: the client engine and the server
+engine.
+
+Lace's client engine is written in Javascript and is
+completely optional. If enabled, DOM compliant browsers that
+support XMLHttpRequest get a great user experience: speedy updates
+on the fly with no browser refreshes necessary. Sweet!
+
+Lace's server engine is written in PHP and provides flat-file data
+access and a hook for the XMLHttpRequest object, if present. If
+XMLHttpRequest is not present for whatever reason, the server
+engine handles submissions like a 'traditional' web application so
+that Lace remains usable - from nearly any browser.
+
+The client engine is made up of Javascript files found in the
+/scripts/ directory.
+
+The server engine is made of PHP libraries found in /lib/; the main
+library is lib_lace.php.  The XMLHttpRequest hook is lace.php in
+the root folder.
+
+
+3. Requirements
+---------------
+Browsers
+
+So far, Lace seems to work just fine with:
+
+  Firefox
+  IE5.5+ (including IE7)
+  Opera 8
+  Safari
+
+IE/Mac and IE5.0/Win work with several limitations: IE/Mac doesn't
+support XMLHttpRequest and IE5.0/Win doesn't support the
+encodeURIComponent Javascript method, which means that the client
+engine won't work properly in either browser. In addition, they
+each mangle the CSS a little differently.
+
+At a minimum, Lace should function to some degree in most browsers
+with or without Javascript or CSS support.
+
+Servers
+
+Lace was built on top of Apache 1.3.xx and PHP 4.3.10, and runs
+fine on Apache 2.x and PHP 5.  Please email me any configurations
+it does (or doesn't) seem to work with.
+
+As of 0.1.3, Lace can optionally utilize mod_rewrite to provide
+pretty URLs.
+
+Lace requires PHP be compiled with multibyte character support
+(--enable-mbstring) in order to support character sets like
+Japanse and Chinese.  You can verify your PHP supports this by
+looking for the 'mbstring' section of the output of phpinfo().
+
+If you do not have the mbstring extension, Lace might mangle
+multibyte characters.
+
+
+4. Installing Lace
+------------------
+1. Copy the contents of the /www directory to your web server.
+
+2. chmod 644 (or whatever works best for you) the following
+   files and directories:
+
+  /data
+  /data/activity.dat
+  /data/lace.dat
+  /data/log.dat
+  /data/logs/
+
+   If you aren't familiar with chmod, you need to set the proper
+   permissions on the above files that allow PHP to read and write
+   to them.  This can usually be done from within your FTP program.
+
+   Important
+   ---------
+   Lace can optionally use .htaccess and mod_rewrite to simulate
+   dirified URLs.  If Lace will be hosted by a hosting company,
+   there should be no problem.  If you are setting Lace up on your
+   own personal server, be sure to allow .htaccess files by making
+   the proper changes to httpd.conf, if you haven't done so
+   already.
+
+3. Open config.php and make sure to set the following at a
+   minimum:
+
+    LACE_URL_ABS
+    LACE_URL_REL
+
+   Other settings you may want to change are:
+
+    LACE_SITENAME
+    LACE_SITE_DESCRIPTION
+    LACE_TIMEOUT
+    LACE_MAX_TEXT_LENGTH
+    LACE_LOGS_DIRIFIED
+
+   Have a look at the rest of the settings, to see what else you
+   may want to change.  All settings have a brief description of
+   what they are/do.
+
+   If you ever mess up a setting, or need to remember what it was
+   originally set to, you can use the config.dist.php file for
+   reference.
+
+4. If you're using LACE_LOGS_DIRIFIED, edit .htaccess and change
+   RewriteBase to the setting you used for LACE_URL_REL.  In other
+   words, RewriteBase should be the relative URL to your Lace
+   installation (e.g. /lace/).
+
+5. Lace ships with a pre-configured version of Cal Henderson's
+   lib_filter found in /lib/, and it's pretty strict. It only allows
+   a, b, code, i, em and strong tags.  You may want to modify the
+   default settings to allow for more tags.
+
+6. The layout is mostly customizable, and much of it can be changed
+   by modifying /styles/style.css.
+
+
+5. Upgrading Lace
+-----------------
+1. Copy the new files from the Lace distribution to your web
+   server, taking care not to overwrite any files you may have
+   modified (e.g. config.php), and more importantly, the /data/
+   directory.
+
+   During these early stages of development, some files may change
+   names or directories, or features may change between versions.
+   As Lace matures, such changes will become much less frequent.
+
+2. Look for configuration changes in the new config.dist.php.  If
+   there are any changes, use your favorite text editor to copy the
+   changes to your old config.php by hand.
+
+
+6. Support
+----------
+This release has only been tested on my development and 'production' servers.
+I cannot guarantee that it will work with your configuration.
+
+If you are having a problem, search the Lace Forum
+(http://socket7.net/lace/forum/) for a solution, or post your problem and
+someone will do their best to help.
+
+If you have fixed an issue yourself, please post your solution to the forum
+or send me an email so that I can consider it for the next release.
+
+Send any questions, comments or fixes to brettstimmerman@gmail.com.
+
+
+7. Todo
+-------
+This release of Lace is experimental.  There are many aspects of
+the application that need tending to if it is ever going to fly.
+
+Some of Lace's immediate needs might be:
+
+  - Refactor and streamline entire codebase.  It's currently a
+    massive hodge-podge with a blatant disregard for any sensible
+    order
+  - Streamline XHTML and CSS
+  - Improve component abstraction
+  - Drop certain hard-coded features in favor of a plug-in
+    architecture
+
+Completed items:
+
+    - Consider mod_rewrite in place of ForceType for pretty URLs
+      (0.1.3)
+
+
+8. Credits
+----------
+Lace is originally based on a small portion of Ryan Grove's
+PHPSlice, and includes tiny snips of Ryan's other project,
+Poseidon.
+PHPSlice Copyright (C) 2001 - 2002 Ryan Grove
+Poseidon Copyright (C) 2003 - 2005 Ryan Grove
+http://wiki.wonko.com/software
+
+Lace uses Cal Henderson's lib_filter library.
+Copyright (C) 2001-2004 Cal Henderson
+http://code.iamcal.com
