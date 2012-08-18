@@ -24,7 +24,7 @@ require_once('config.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
-  header('Location: ' . LACE_URL_ABS);
+  header('$wgLaceLocation = "http://www.wikichat.org/wiki/lace";);
   exit;
 }
 
